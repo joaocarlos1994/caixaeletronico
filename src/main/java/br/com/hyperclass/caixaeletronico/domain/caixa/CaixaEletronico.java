@@ -7,6 +7,7 @@
 
 package br.com.hyperclass.caixaeletronico.domain.caixa;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import br.com.hyperclass.caixaeletronico.domain.contacorrente.ContaCorrente;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.EventoTransacional;
 
 /**
  * A classe <code>CaixaEletronico</code> contém as operações de transações
@@ -61,6 +63,11 @@ public class CaixaEletronico {
         final ContaCorrente origem = getContaCorrente(contaOrigem);
         final ContaCorrente destino = getContaCorrente(contaDestino);
         origem.transferir(destino, valor);
+    }
+    
+    public List<EventoTransacional> extrato(final String contaCorrente) {
+    	final ContaCorrente conta = contasClientes.get(contaCorrente);
+        return Collections.unmodifiableList(conta.extrato());
     }
 
     /**
