@@ -3,8 +3,8 @@ package br.com.hyperclass.caixaeletronico.restapi.wrapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import br.com.hyperclass.caixaeletronico.restapi.deserialize.ValorDeserializer;
-import br.com.hyperclass.caixaeletronico.restapi.serialize.ValorSerializer;
+import br.com.hyperclass.caixaeletronico.restapi.deserializer.ValorDeserializer;
+import br.com.hyperclass.caixaeletronico.restapi.serializer.ValorSerializer;
 
 /**
  * A classe <code>ValorWrapper</code> contém apenas um atributo do tipo double

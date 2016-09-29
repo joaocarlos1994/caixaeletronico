@@ -5,7 +5,7 @@
  * proprietary/confidential. Use is subject to license terms.
  */
 
-package br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_;
+package br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos;
 
 import java.util.Date;
 

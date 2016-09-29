@@ -1,4 +1,4 @@
-package br.com.hyperclass.caixaeletronico.restapi.deserialize;
+package br.com.hyperclass.caixaeletronico.restapi.deserializer;
 
 import java.io.IOException;
 
@@ -20,9 +20,7 @@ public class ValorDeserializer extends JsonDeserializer<ValorWrapper> {
 		 ObjectCodec oc = jsonParser.getCodec(); 
 		 JsonNode node = oc.readTree(jsonParser);
 		 
-		 final double valor = 0;
-	        
-		return new ValorWrapper(valor);
+		return new ValorWrapper(node.get("valor").asDouble());
 	}
 
 

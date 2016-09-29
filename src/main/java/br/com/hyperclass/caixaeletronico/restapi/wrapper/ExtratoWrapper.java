@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.EventoTransacional;
-import br.com.hyperclass.caixaeletronico.restapi.serialize.ExtratoSerializer;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.EventoTransacional;
+import br.com.hyperclass.caixaeletronico.restapi.serializer.ExtratoSerializer;
 
 @JsonSerialize(using = ExtratoSerializer.class)
 public class ExtratoWrapper {

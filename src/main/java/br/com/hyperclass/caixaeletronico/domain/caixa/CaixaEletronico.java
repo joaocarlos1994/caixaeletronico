@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import br.com.hyperclass.caixaeletronico.domain.contacorrente.ContaCorrente;
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.EventoTransacional;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.EventoTransacional;
 
 /**
  * A classe <code>CaixaEletronico</code> contém as operações de transações
@@ -32,8 +32,7 @@ public class CaixaEletronico {
 
     public CaixaEletronico(final Map<ValorNota, List<Nota>> notas, final List<ContaCorrente> correntistas) {
         carregarContasClientes(correntistas);
-        notas.clear();
-        notas.putAll(notas);
+        this.notas.putAll(notas);
     }
 
     public double saldo(final String contaCorrente) throws CaixaEletronicoException {
@@ -84,10 +83,10 @@ public class CaixaEletronico {
         double valorRemover = 0;
         for (final Entry<ValorNota, List<Nota>> entry : notas.entrySet()) {
             final ValorNota nota = entry.getKey();
-            final LinkedList<Nota> lista = (LinkedList<Nota>) entry.getValue();
+            final List<Nota> lista = entry.getValue();
             while ((valorRemover + nota.valor()) <= valorSacar && !lista.isEmpty()) {
                 valorRemover = valorRemover + nota.valor();
-                lista.removeLast();
+                lista.remove(lista.size() - 1);
             }
         }
     }
@@ -105,10 +104,10 @@ public class CaixaEletronico {
         final Map<ValorNota, List<Nota>> notasMapCopia = new HashMap<>(notas);
         for (final Entry<ValorNota, List<Nota>> entry : notasMapCopia.entrySet()) {
             final ValorNota nota = entry.getKey();
-            final LinkedList<Nota> lista = (LinkedList<Nota>) entry.getValue();
+            final List<Nota> lista =  entry.getValue();
             while ((somaNotas < valor) && (somaNotas + nota.valor() <= valor) && !lista.isEmpty()) {
                 somaNotas += nota.valor();
-                lista.removeLast();
+                lista.remove(lista.size() - 1);
             }
         }
         return somaNotas == valor ? true : false;

@@ -1,32 +1,26 @@
-package br.com.hyperclass.caixaeletronico.restapi.serialize;
+package br.com.hyperclass.caixaeletronico.restapi.serializer;
 
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.EventoTransacional;
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.TipoEvento;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.EventoTransacional;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.TipoEvento;
 import br.com.hyperclass.caixaeletronico.restapi.wrapper.ExtratoWrapper;
 
 public class ExtratoSerializer extends JsonSerializer<ExtratoWrapper> {
 	
-	private final Map<TipoEvento, Serializer> eventosSerializer;
-
-	@Autowired
-	public ExtratoSerializer(Map<TipoEvento, Serializer> eventosSerializer) {
-		super();
-		this.eventosSerializer = eventosSerializer;
-	}
+	private final Map<TipoEvento, Serializer> eventosSerializer = new EnumMap<>(TipoEvento.class);
 
 	@Override
 	public void serialize(ExtratoWrapper extratoWrapper, JsonGenerator jsonGenerator,
-			SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+			SerializerProvider serializerProvider) throws IOException {
 		
 		jsonGenerator.writeStartArray();
 		
@@ -38,6 +32,9 @@ public class ExtratoSerializer extends JsonSerializer<ExtratoWrapper> {
 		jsonGenerator.writeEndArray();
 		
 	}
-
-
+	
+	@Resource
+	public void setEventosSerializer(final Map<TipoEvento, Serializer> eventosSerializer){
+		this.eventosSerializer.putAll(eventosSerializer);
+	}
 }

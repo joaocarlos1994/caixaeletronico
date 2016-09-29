@@ -1,4 +1,4 @@
-package br.com.hyperclass.caixaeletronico.restapi.serialize;
+package br.com.hyperclass.caixaeletronico.restapi.serializer;
 
 
 import java.io.IOException;

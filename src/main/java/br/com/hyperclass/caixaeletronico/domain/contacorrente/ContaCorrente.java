@@ -12,12 +12,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.hyperclass.caixaeletronico.domain.caixa.CaixaEletronicoException;
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.EventoTransacional;
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.TipoEvento;
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.ValorDepositadoEvento;
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.ValorInicialDisponibilizadoEvento;
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.ValorSacadoEvento;
-import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_.ValorTransferidoEvento;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.EventoTransacional;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.TipoEvento;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.ValorDepositadoEvento;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.ValorInicialDisponibilizadoEvento;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.ValorSacadoEvento;
+import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.ValorTransferidoEvento;
 
 /**
  * A classe <code>ContaCorrente</code> representa uma conta corrente. Não há um

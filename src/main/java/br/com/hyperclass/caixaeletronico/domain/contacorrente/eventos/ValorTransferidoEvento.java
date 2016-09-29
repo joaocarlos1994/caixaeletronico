@@ -5,7 +5,7 @@
  * proprietary/confidential. Use is subject to license terms.
  */
 
-package br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos_;
+package br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos;
 
 import br.com.hyperclass.caixaeletronico.domain.contacorrente.ContaCorrente;
 
@@ -32,5 +32,6 @@ public class ValorTransferidoEvento extends EventoTransacional {
     @Override
     public ContextoTransferencia getSource() {
     	return (ContextoTransferencia) super.getSource();
-    }
+    } 
+    
 }
