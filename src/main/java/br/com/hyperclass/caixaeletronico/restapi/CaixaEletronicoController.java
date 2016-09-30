@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.hyperclass.caixaeletronico.domain.caixa.CaixaEletronico;
 import br.com.hyperclass.caixaeletronico.domain.caixa.CaixaEletronicoException;
 import br.com.hyperclass.caixaeletronico.restapi.wrapper.ExtratoWrapper;
+import br.com.hyperclass.caixaeletronico.restapi.wrapper.TransferenciaWrapper;
 import br.com.hyperclass.caixaeletronico.restapi.wrapper.ValorWrapper;
 
 
@@ -45,18 +46,18 @@ public class CaixaEletronicoController {
 	}
 	
 	@RequestMapping(value="/{contaCorrente}/depositar", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void depositar(@PathVariable final String conta, @RequestBody final ValorWrapper valorWrapper) throws CaixaEletronicoException{
+	public void depositar(@PathVariable("contaCorrente") final String conta, @RequestBody final ValorWrapper valorWrapper) throws CaixaEletronicoException{
 		caixaEletronico.depositar(conta, valorWrapper.getValor());
 	}
 	
-	@RequestMapping(value="/{contaCorrente}/tranferir", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void tranferir(final String contaOrigem, final String  contaDestino, @RequestBody final ValorWrapper valorWrapper) throws CaixaEletronicoException{
-		caixaEletronico.transferir(contaOrigem, contaDestino, valorWrapper.getValor());
+	@RequestMapping(value="/{contaCorrente}/transferir", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public void tranferir(@PathVariable("contaCorrente") final String contaOrigem, @RequestBody final TransferenciaWrapper  transferenciaWrapper) throws CaixaEletronicoException{
+		caixaEletronico.transferir(contaOrigem, transferenciaWrapper.getContaDestino(), transferenciaWrapper.getValor());
 	}
 	
 	@RequestMapping(value="/{contaCorrente}/extrato", method=RequestMethod.GET)
-	public ExtratoWrapper extrato(@PathVariable("contaCorrente") final String conta){
-		return new ExtratoWrapper(caixaEletronico.extrato(conta));
+	public ExtratoWrapper extrato(@PathVariable("contaCorrente") final String contaCorrente){
+		return new ExtratoWrapper(caixaEletronico.extrato(contaCorrente));
 	}
 	
 }

@@ -26,10 +26,10 @@ public class TransferenciaSerializer extends DefaultSerializer {
 		
 		jsonGenerator.writeStartObject();
 		
-		super.serialize(evTransacional, jsonGenerator);
+		super.serializerDefaultValues(evTransacional, jsonGenerator);
 		
 		ValorTransferidoEvento ev = (ValorTransferidoEvento) evTransacional;
-		jsonGenerator.writeStringField("conta", ev.getSource().getConta().getNumeroConta());
+		jsonGenerator.writeStringField("conta", ev.getNumeroConta());
 		
 		jsonGenerator.writeEndObject();
 	}

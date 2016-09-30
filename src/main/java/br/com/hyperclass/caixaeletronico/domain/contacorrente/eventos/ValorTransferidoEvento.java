@@ -26,12 +26,21 @@ public class ValorTransferidoEvento extends EventoTransacional {
 
     @Override
     public double atualizarSaldo(final double saldo) {
-        return saldo + getValor();
+    	
+    	if(getSource().getTipo() == TipoEvento.TRANSFERENCIA_ENTRADA){
+    		return saldo + getValor();
+    	}
+        return saldo - getValor();
     }
     
     @Override
     public ContextoTransferencia getSource() {
     	return (ContextoTransferencia) super.getSource();
-    } 
+    }
+    
+    public String getNumeroConta(){
+    	return getSource().getNumeroConta();
+    }
+    
     
 }

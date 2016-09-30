@@ -10,6 +10,14 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import br.com.hyperclass.caixaeletronico.restapi.wrapper.ValorWrapper;
 
+/**
+ * A classe <code>ValorSerializer</code> contém a operação de serializar
+ * um objeto valor.
+ * 
+ * @author João Carlos
+ * @version 1.0 30/09/2016
+ * */
+
 public class ValorSerializer extends JsonSerializer<ValorWrapper> {
 
 	@Override

@@ -9,28 +9,26 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import br.com.hyperclass.caixaeletronico.restapi.wrapper.ValorWrapper;
+import br.com.hyperclass.caixaeletronico.restapi.wrapper.TransferenciaWrapper;
 
 /**
- * A classe <code>ValorDeserializer</code> é uma classe que fara a deserilização de um valor
- * enviado através de um Json.
+ * A classe <code>TransferenciaDeserializer</code> é uma classe que fara a deserilização de um Json que
+ * contenha as propriedades valor e contadestino.
  * 
  * @author João Carlos
  * @version 1.0 30/09/2016
  */
 
-public class ValorDeserializer extends JsonDeserializer<ValorWrapper> {
+public class TransferenciaDeserializer extends JsonDeserializer<TransferenciaWrapper> {
 
 	@Override
-	public ValorWrapper deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+	public TransferenciaWrapper deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
 			throws IOException, JsonProcessingException {
 		
-		 ObjectCodec oc = jsonParser.getCodec(); 
+		ObjectCodec oc = jsonParser.getCodec(); 
 		 JsonNode node = oc.readTree(jsonParser);
-		 
-		return new ValorWrapper(node.get("valor").asDouble());
+		
+		return new TransferenciaWrapper(node.get("valor").asDouble(), node.get("contadestino").asText());
 	}
-
-
 
 }

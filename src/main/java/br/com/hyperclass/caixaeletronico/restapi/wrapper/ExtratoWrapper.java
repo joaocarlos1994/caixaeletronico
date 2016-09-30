@@ -8,6 +8,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.EventoTransacional;
 import br.com.hyperclass.caixaeletronico.restapi.serializer.ExtratoSerializer;
 
+
+/**
+ * A classe <code>ExtratoWrapper</code> é uma classe de configuração que serializa os eventos que  
+ * transacionais.
+ * 
+ * @author João Carlos
+ * @version 1.0 30/09/2016
+ * */
+
 @JsonSerialize(using = ExtratoSerializer.class)
 public class ExtratoWrapper {
 	
