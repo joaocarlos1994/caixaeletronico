@@ -123,7 +123,7 @@ public class CaixaEletronico {
         }
     }
 
-    private ContaCorrente getContaCorrente(final String contaCorrente) throws CaixaEletronicoException {
+    protected ContaCorrente getContaCorrente(final String contaCorrente) throws CaixaEletronicoException {
         final ContaCorrente conta = contasClientes.get(contaCorrente);
         if (conta == null) {
             throw new ContaInvalidaException(contaCorrente);

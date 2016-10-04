@@ -1,4 +1,4 @@
-package br.com.hyperclass.caixaeletronico.config;
+package br.com.hyperclass.caixaeletronico.teste.config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,50 +8,36 @@ import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import br.com.hyperclass.caixaeletronico.config.CaixaEletronicoConfigAbstract;
 import br.com.hyperclass.caixaeletronico.domain.caixa.CaixaEletronico;
 import br.com.hyperclass.caixaeletronico.domain.caixa.Nota;
 import br.com.hyperclass.caixaeletronico.domain.caixa.ValorNota;
 import br.com.hyperclass.caixaeletronico.domain.contacorrente.ContaCorrente;
-
-/**
- * A classe <code>CaixaEletronicoConfig</code> é uma classe de configuração,
- * contendo a configuração das notas disponívei e os clientes existentes na
- * aplicação.
- *
- * @author João Carlos
- * @version 1.0 28/09/2016
- */
+import br.com.hyperclass.caixaeletronico.teste.domain.CaixaEletronicoTest;
 
 @Configuration
-public class CaixaEletronicoConfig extends CaixaEletronicoConfigAbstract {
+public class CaixaEletronicoConfigTest extends CaixaEletronicoConfigAbstract {
 
 	@Bean
 	@Override
 	public CaixaEletronico caixaEletronico() {
-		return new CaixaEletronico(notasCaixa(), contasCorrentes());
+		return new CaixaEletronicoTest(notasCaixa(), contasCorrentes());
 	}
 
 	@Override
 	public List<ContaCorrente> contasCorrentes() {
-		
-		final ContaCorrente contaCorrente = new ContaCorrente("54125-9", 10854.78);
-		final ContaCorrente contaCorrente2 = new ContaCorrente("25214-8", 1050.99);
-		final ContaCorrente contaCorrente3 = new ContaCorrente("88452-1", 7696.00);
-		final ContaCorrente contaCorrente4 = new ContaCorrente("15935-7", 412.13);
 
-		final List<ContaCorrente> contasCorrentes = new ArrayList<>(4);
+		final ContaCorrente contaCorrente = new ContaCorrente("12345-0", 412.13);
+
+		final List<ContaCorrente> contasCorrentes = new ArrayList<>(1);
 
 		contasCorrentes.add(contaCorrente);
-		contasCorrentes.add(contaCorrente2);
-		contasCorrentes.add(contaCorrente3);
-		contasCorrentes.add(contaCorrente4);
 
 		return contasCorrentes;
 	}
 
 	@Override
 	public Map<ValorNota, List<Nota>> notasCaixa() {
-		
 		final Map<ValorNota, List<Nota>> notasCaixa = new HashMap<>();
 
 		notasCaixa.put(ValorNota.UM, listaNota(ValorNota.UM, 10));
