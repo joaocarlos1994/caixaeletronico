@@ -34,6 +34,8 @@ import br.com.hyperclass.caixaeletronico.teste.config.SpringContextConfiguration
 import br.com.hyperclass.caixaeletronico.teste.domain.CaixaEletronicoTest;
 import br.com.hyperclass.caixaeletronico.teste.util.DefaultComparatorCaixaEletronico;
 
+//
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { SpringContextConfigurationTest.class, WebConfig.class })
