@@ -28,7 +28,7 @@ public class TransferenciaDeserializer extends JsonDeserializer<TransferenciaWra
 		ObjectCodec oc = jsonParser.getCodec(); 
 		 JsonNode node = oc.readTree(jsonParser);
 		
-		return new TransferenciaWrapper(node.get("valor").asDouble(), node.get("contadestino").asText());
+		return new TransferenciaWrapper(node.get("valor").asDouble(), node.get("contaDestino").asText());
 	}
 
 }

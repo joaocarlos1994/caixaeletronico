@@ -1,6 +1,7 @@
 package br.com.hyperclass.caixaeletronico.teste;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -29,6 +31,7 @@ import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.ValorDepos
 import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.ValorInicialDisponibilizadoEvento;
 import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.ValorSacadoEvento;
 import br.com.hyperclass.caixaeletronico.restapi.wrapper.ExtratoWrapper;
+import br.com.hyperclass.caixaeletronico.restapi.wrapper.TransferenciaWrapper;
 import br.com.hyperclass.caixaeletronico.restapi.wrapper.ValorWrapper;
 import br.com.hyperclass.caixaeletronico.teste.config.SpringContextConfigurationTest;
 import br.com.hyperclass.caixaeletronico.teste.domain.CaixaEletronicoTest;
@@ -69,8 +72,6 @@ public class CaixaControllerTest {
 	
 	@Test
 	public void testeSaldoContaCorrente() throws Exception{
-		
-		final ContaCorrente cc = caixaTest.getConta("12345-0");
 
 		MvcResult result = this.mockMvc.perform(get("/12345-0/saldo")).andReturn();
 		
@@ -81,12 +82,26 @@ public class CaixaControllerTest {
 	@Test
 	public void testeDepositoContaCorrente() throws Exception{
 		
-		final ContaCorrente cc = caixaTest.getConta("12345-0");
-		MvcResult result = this.mockMvc.perform(get("/12345-0/depositar")).andReturn();
+		 mockMvc.perform(post("/12345-0/depositar")
+				 .content(convertObjectToJson(new ValorWrapper(10.0))).contentType(MediaType.APPLICATION_JSON_VALUE));
 		
-		JSONAssert.assertEquals(convertObjectToJson(new ValorWrapper(412.13)), result.getResponse().getContentAsString(), true);
-
+		MvcResult result = this.mockMvc.perform(get("/12345-0/saldo")).andReturn();
 		
+		JSONAssert.assertEquals(convertObjectToJson(new ValorWrapper(422.13)), result.getResponse().getContentAsString(), true);
+		
+	}
+	
+	@Test
+	public void testeTranferenciaContaCorrente() throws Exception{
+		
+		 mockMvc.perform(post("/12345-0/transferir")
+				 .content(convertObjectToJson(new TransferenciaWrapper(10.0, "05432-1"))).contentType(MediaType.APPLICATION_JSON_VALUE));
+		
+		MvcResult result = this.mockMvc.perform(get("/12345-0/saldo")).andReturn();
+		MvcResult result2 = this.mockMvc.perform(get("/05432-1/saldo")).andReturn();
+		
+		JSONAssert.assertEquals(convertObjectToJson(new ValorWrapper(402.13)), result.getResponse().getContentAsString(), true);
+		JSONAssert.assertEquals(convertObjectToJson(new ValorWrapper(422.13)), result2.getResponse().getContentAsString(), true);
 	}
 	
 	private ExtratoWrapper getExtratoWraper(){
@@ -101,7 +116,7 @@ public class CaixaControllerTest {
 	}
 	
 	private String convertObjectToJson(final Object object) throws JsonProcessingException{
-		ObjectMapper objectMapper = new ObjectMapper();
+		final ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.writeValueAsString(object);
 	}
 

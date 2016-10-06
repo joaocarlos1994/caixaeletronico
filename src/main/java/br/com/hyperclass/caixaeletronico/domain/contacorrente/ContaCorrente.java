@@ -30,56 +30,56 @@ import br.com.hyperclass.caixaeletronico.domain.contacorrente.eventos.ValorTrans
  */
 public class ContaCorrente {
 
-    private final String numeroConta;
-    private final List<EventoTransacional> historico = new LinkedList<>();
+	private final String numeroConta;
+	private final List<EventoTransacional> historico = new LinkedList<>();
 
-    public ContaCorrente(final String numeroConta, final double saldoInicial) {
-        super();
-        this.numeroConta = numeroConta;
-        historico.add(new ValorInicialDisponibilizadoEvento(saldoInicial));
-    }
+	public ContaCorrente(final String numeroConta, final double saldoInicial) {
+		super();
+		this.numeroConta = numeroConta;
+		historico.add(new ValorInicialDisponibilizadoEvento(saldoInicial));
+	}
 
-    public double saldo() {
-        double saldo = 0.0;
-        for (final EventoTransacional evento : historico) {
-            saldo = evento.atualizarSaldo(saldo);
-        }
-        return saldo;
-    }
+	public double saldo() {
+		double saldo = 0.0;
+		for (final EventoTransacional evento : historico) {
+			saldo = evento.atualizarSaldo(saldo);
+		}
+		return saldo;
+	}
 
-    public List<EventoTransacional> extrato() {
-        Collections.sort(historico);
-        return Collections.unmodifiableList(historico);
-    }
+	public List<EventoTransacional> extrato() {
+		Collections.sort(historico);
+		return Collections.unmodifiableList(historico);
+	}
 
-    public void creditar(final double valor) {
-        historico.add(new ValorDepositadoEvento(valor));
-    }
+	public void creditar(final double valor) {
+		historico.add(new ValorDepositadoEvento(valor));
+	}
 
-    public void sacar(final double valor) throws CaixaEletronicoException {
-        if (!temSaldo(valor)) {
-            throw new SaldoInsuficienteException(saldo());
-        }
-        historico.add(new ValorSacadoEvento(valor));
-    }
+	public void sacar(final double valor) throws CaixaEletronicoException {
+		if (!temSaldo(valor)) {
+			throw new SaldoInsuficienteException(saldo());
+		}
+		historico.add(new ValorSacadoEvento(valor));
+	}
 
-    public void transferir(final ContaCorrente contaDestino, final double valor) throws CaixaEletronicoException {
-        if (!temSaldo(valor)) {
-            throw new SaldoInsuficienteException(saldo());
-        }
-        historico.add(new ValorTransferidoEvento(contaDestino, valor, TipoEvento.TRANSFERENCIA_SAIDA));
-        contaDestino.receberTransferencia(this, valor);
-    }
+	public void transferir(final ContaCorrente contaDestino, final double valor) throws CaixaEletronicoException {
+		if (!temSaldo(valor)) {
+			throw new SaldoInsuficienteException(saldo());
+		}
+		historico.add(new ValorTransferidoEvento(contaDestino, valor, TipoEvento.TRANSFERENCIA_SAIDA));
+		contaDestino.receberTransferencia(this, valor);
+	}
 
-    public void receberTransferencia(final ContaCorrente contaOrigem, final double valor) {
-        historico.add(new ValorTransferidoEvento(contaOrigem, valor, TipoEvento.TRANSFERENCIA_ENTRADA));
-    }
+	public String getNumeroConta() {
+		return numeroConta;
+	}
 
-    public String getNumeroConta() {
-        return numeroConta;
-    }
+	private boolean temSaldo(final double valor) {
+		return saldo() >= valor;
+	}
 
-    private boolean temSaldo(final double valor) {
-        return saldo() >= valor;
-    }
+	private void receberTransferencia(final ContaCorrente contaOrigem, final double valor) {
+		historico.add(new ValorTransferidoEvento(contaOrigem, valor, TipoEvento.TRANSFERENCIA_ENTRADA));
+	}
 }

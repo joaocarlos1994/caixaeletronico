@@ -28,10 +28,12 @@ public class CaixaEletronicoConfigTest extends CaixaEletronicoConfigAbstract {
 	public List<ContaCorrente> contasCorrentes() {
 
 		final ContaCorrente contaCorrente = new ContaCorrente("12345-0", 412.13);
+		final ContaCorrente contaCorrente2 = new ContaCorrente("05432-1", 412.13);
 
-		final List<ContaCorrente> contasCorrentes = new ArrayList<>(1);
+		final List<ContaCorrente> contasCorrentes = new ArrayList<>(2);
 
 		contasCorrentes.add(contaCorrente);
+		contasCorrentes.add(contaCorrente2);
 
 		return contasCorrentes;
 	}
